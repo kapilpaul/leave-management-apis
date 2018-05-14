@@ -1,0 +1,8 @@
+<div class="box-body">
+    %%formFieldsHtml%%
+</div>
+
+<div class="box-footer">
+    {!! Form::reset('Cancel', ['class'=>'btn btn-default']) !!}
+    {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Create', ['class' => 'btn btn-info pull-right']) !!}
+</div>

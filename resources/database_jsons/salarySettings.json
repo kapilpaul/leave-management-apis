@@ -1,0 +1,45 @@
+{
+  "fields": [
+    {
+      "name": "type",
+      "type": "string"
+    },
+    {
+      "name": "amount",
+      "type": "float"
+    },
+    {
+      "name": "amount_type",
+      "type": "string"
+    },
+    {
+      "name": "company_id",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "created_by",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "updated_by",
+      "type": "integer#unsigned"
+    }
+  ],
+  "relationships": [
+    {
+      "name": "user",
+      "type": "belongsTo",
+      "class": "App\\User"
+    }
+  ],
+  "validations": [
+    {
+      "field": "type",
+      "rules": "required"
+    },
+    {
+      "field": "amount",
+      "rules": "required"
+    }
+  ]
+}

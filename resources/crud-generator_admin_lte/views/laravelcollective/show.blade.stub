@@ -1,0 +1,72 @@
+@extends('layouts.admin_index')
+
+@section('title')
+    %%modelName%%
+@stop
+
+@section('content')
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>%%modelName%% {{ $%%crudNameSingular%%->%%primaryKey%% }}</h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">%%modelName%%</a></li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="box box-info">
+                        @if(session('success'))
+                            <div class="box-body">
+                                <div class="alert alert-success">
+                                    <p>{{session('success')}}</p>
+                                </div>
+                            </div>
+                        @endif
+
+                        <!-- /.box-header -->
+
+
+                        <div class="box-body">
+                            <a href="{{ url('/%%routeGroup%%%%viewName%%/' . $%%crudNameSingular%%->%%primaryKey%% . '/edit') }}" title="Edit %%modelName%%"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+
+                            {!! Form::open([
+                                'method'=>'DELETE',
+                                'url' => ['%%routeGroup%%%%crudName%%', $%%crudNameSingular%%->%%primaryKey%%],
+                                'style' => 'display:inline'
+                            ]) !!}
+                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
+                                        'type' => 'submit',
+                                        'class' => 'btn btn-danger btn-xs',
+                                        'title' => 'Delete %%modelName%%',
+                                        'onclick'=>'return confirm("Confirm delete?")'
+                                ))!!}
+                            {!! Form::close() !!}
+                            <br/>
+                            <br/>
+
+                            <div class="table-responsive">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        %%formBodyHtmlForShowView%%
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+@endsection

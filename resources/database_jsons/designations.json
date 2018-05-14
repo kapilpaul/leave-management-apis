@@ -1,0 +1,46 @@
+{
+  "fields": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "department_id",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "created_by",
+      "type": "integer#unsigned"
+    }
+  ],
+  "foreign_keys": [
+    {
+      "column": "department_id",
+      "references": "id",
+      "on": "departments",
+      "onDelete": "cascade"
+    }
+  ],
+  "relationships": [
+    {
+      "name": "user",
+      "type": "belongsTo",
+      "class": "App\\User"
+    },
+    {
+      "name": "department",
+      "type": "belongsTo",
+      "class": "App\\Department"
+    }
+  ],
+  "validations": [
+    {
+      "field": "name",
+      "rules": "required"
+    },
+    {
+      "field": "department_id",
+      "rules": "required|numeric"
+    }
+  ]
+}

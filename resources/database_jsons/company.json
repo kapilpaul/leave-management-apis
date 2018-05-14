@@ -1,0 +1,89 @@
+{
+  "fields": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "contact_person",
+      "type": "string"
+    },
+    {
+      "name": "address",
+      "type": "text"
+    },
+    {
+      "name": "country",
+      "type": "string"
+    },
+    {
+      "name": "state",
+      "type": "string"
+    },
+    {
+      "name": "postal_code",
+      "type": "string"
+    },
+    {
+      "name": "email",
+      "type": "string"
+    },
+    {
+      "name": "phone",
+      "type": "string"
+    },
+    {
+      "name": "mobile",
+      "type": "string"
+    },
+    {
+      "name": "fax",
+      "type": "string"
+    },
+    {
+      "name": "website_url",
+      "type": "string"
+    },
+    {
+      "name": "photo_id",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "created_by",
+      "type": "integer#unsigned"
+    }
+  ],
+  "relationships": [
+    {
+      "name": "user",
+      "type": "belongsTo",
+      "class": "App\\User"
+    }
+  ],
+  "validations": [
+    {
+      "field": "name",
+      "rules": "required"
+    },
+    {
+      "field": "contact_person",
+      "rules": "required"
+    },
+    {
+      "field": "address",
+      "rules": "required"
+    },
+    {
+      "field": "country",
+      "rules": "required"
+    },
+    {
+      "field": "city",
+      "rules": "required"
+    },
+    {
+      "field": "email",
+      "rules": "required"
+    }
+  ]
+}

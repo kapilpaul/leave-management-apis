@@ -1,0 +1,139 @@
+{
+  "fields": [
+    {
+      "name": "user_id",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "employee_number",
+      "type": "string"
+    },
+    {
+      "name": "joining_date",
+      "type": "date"
+    },
+    {
+      "name": "company_id",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "supervisior_id",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "designation_id",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "photo_id",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "blood_group",
+      "type": "string"
+    },
+    {
+      "name": "linkedin",
+      "type": "string"
+    },
+    {
+      "name": "contact",
+      "type": "string"
+    },
+    {
+      "name": "official_number",
+      "type": "string"
+    },
+    {
+      "name": "fathers_name",
+      "type": "string"
+    },
+    {
+      "name": "fathers_number",
+      "type": "string"
+    },
+    {
+      "name": "mothers_name",
+      "type": "string"
+    },
+    {
+      "name": "mothers_number",
+      "type": "string"
+    },
+    {
+      "name": "spouse_name",
+      "type": "string"
+    },
+    {
+      "name": "spouse_number",
+      "type": "string"
+    },
+    {
+      "name": "current_address",
+      "type": "string"
+    },
+    {
+      "name": "permanent_address",
+      "type": "string"
+    },
+    {
+      "name": "nid",
+      "type": "string"
+    },
+    {
+      "name": "passport",
+      "type": "string"
+    },
+    {
+      "name": "driving_licence",
+      "type": "string"
+    },
+    {
+      "name": "date_of_birth",
+      "type": "date"
+    },
+    {
+      "name": "emergency_contact_name",
+      "type": "string"
+    },
+    {
+      "name": "emergency_contact_number",
+      "type": "date"
+    },
+    {
+      "name": "relation_emergency_contact",
+      "type": "string"
+    },
+    {
+      "name": "skills",
+      "type": "text"
+    },
+    {
+      "name": "education",
+      "type": "text"
+    },
+    {
+      "name": "experience",
+      "type": "text"
+    },
+    {
+      "name": "leaving_date",
+      "type": "date"
+    },
+    {
+      "name": "created_by",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "updated_by",
+      "type": "integer#unsigned"
+    }
+  ],
+  "relationships": [
+    {
+      "name": "user",
+      "type": "belongsTo",
+      "class": "App\\User"
+    }
+  ]
+}

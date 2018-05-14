@@ -1,0 +1,65 @@
+{
+  "fields": [
+    {
+      "name": "leave_type_id",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "from_date",
+      "type": "date"
+    },
+    {
+      "name": "to_date",
+      "type": "date"
+    },
+    {
+      "name": "number_of_days",
+      "type": "integer"
+    },
+    {
+      "name": "employee_id",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "leave_reason",
+      "type": "text"
+    },
+    {
+      "name": "remaining_days",
+      "type": "integer"
+    },
+    {
+      "name": "status",
+      "type": "string"
+    },
+    {
+      "name": "created_by",
+      "type": "integer#unsigned"
+    }
+  ],
+  "relationships": [
+    {
+      "name": "user",
+      "type": "belongsTo",
+      "class": "App\\User"
+    }
+  ],
+  "validations": [
+    {
+      "field": "leave_type_id",
+      "rules": "required"
+    },
+    {
+      "field": "from_date",
+      "rules": "required"
+    },
+    {
+      "field": "to_date",
+      "rules": "required"
+    },
+    {
+      "field": "leave_reason",
+      "rules": "required"
+    }
+  ]
+}

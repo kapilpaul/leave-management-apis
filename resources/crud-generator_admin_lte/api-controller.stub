@@ -1,0 +1,103 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyRootNamespaceHttp\Requests;
+use DummyRootNamespaceHttp\Controllers\Controller;
+
+use DummyRootNamespace{{modelNamespace}}{{modelName}};
+use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Illuminate\Database\QueryException;
+use PDOException;
+
+class DummyClass extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        ${{crudName}} = {{modelName}}::paginate({{pagination}});
+
+        return ${{crudName}};
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        try{
+            {{validationRules}}
+            ${{crudNameSingular}} = {{modelName}}::create($request->all());
+
+            return response()->json(${{crudNameSingular}}, 201);
+        } catch(PDOException $e){
+            return response()->json(['error' => 'Something Went Wrong!'], 500);
+        } catch(QueryException $e){
+            return response()->json(['error' => 'Something Went Wrong!'], 500);
+        } catch (MethodNotAllowedHttpException $e){
+            return response()->json(['error' => 'Something Went Wrong!'], 500);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
+
+        return ${{crudNameSingular}};
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param  int  $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        try{
+            {{validationRules}}
+            ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
+            ${{crudNameSingular}}->update($request->all());
+
+            return response()->json(${{crudNameSingular}}, 200);
+        } catch(PDOException $e){
+            return response()->json(['error' => 'Something Went Wrong!'], 500);
+        } catch(QueryException $e){
+            return response()->json(['error' => 'Something Went Wrong!'], 500);
+        } catch (MethodNotAllowedHttpException $e){
+            return response()->json(['error' => 'Something Went Wrong!'], 500);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        {{modelName}}::destroy($id);
+
+        return response()->json(null, 204);
+    }
+}

@@ -1,0 +1,41 @@
+{
+  "fields": [
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "date",
+      "type": "date"
+    },
+    {
+      "name": "status",
+      "type": "string"
+    },
+    {
+      "name": "created_by",
+      "type": "integer#unsigned"
+    },
+    {
+      "name": "updated_by",
+      "type": "integer#unsigned"
+    }
+  ],
+  "relationships": [
+    {
+      "name": "user",
+      "type": "belongsTo",
+      "class": "App\\User"
+    }
+  ],
+  "validations": [
+    {
+      "field": "name",
+      "rules": "required"
+    },
+    {
+      "field": "date",
+      "rules": "required"
+    }
+  ]
+}

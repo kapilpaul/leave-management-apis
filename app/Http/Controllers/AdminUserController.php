@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Employee;
 use App\Http\Requests\registerUserRequest;
 use App\Photo;
 use App\User;
@@ -47,14 +48,12 @@ class AdminUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(registerUserRequest $request)
+    public function store(Request $request)
     {
         $input = $request->all();
 
         if($file = $request->file('photo_id')){
-
             $extension = $file->getClientOriginalExtension();
-
             if($extension == 'jpg' || $extension == 'jpeg' || $extension == 'png') {
                 $name = time() . '_' . $file->getClientOriginalName();
                 $file->move('img', $name);
@@ -66,11 +65,8 @@ class AdminUserController extends Controller
         }
 
         $role = Sentinel::findRoleById($request->roles_id);
-
         $user = Sentinel::registerAndActivate($input);
-
         $role->users()->attach($user);
-
         return redirect()->back()->with(['success' => "$request->name created Successfully."]);
     }
 
@@ -196,5 +192,33 @@ class AdminUserController extends Controller
 
         return redirect()->back()->with(['success' => $user->name.' is Deleted']);
 
+    }
+
+    public function userNamecheck($username){
+        return $this->checkUserByValue('user_name', $username);
+    }
+
+    public function userEmailcheck($email){
+        return $this->checkUserByValue('email', $email);
+    }
+
+    public function checkUserByValue($field, $value){
+        $user = User::where($field, $value)->count();
+
+        if($user == 0) {
+            return response()->json(['status' => 'available'], 201);
+        } else {
+            return response()->json(['status' => 'not Available'], 201);
+        }
+    }
+
+    public function employeeNumberCheck($number){
+        $user = Employee::whereEmployeeNumber($number)->count();
+
+        if($user == 0) {
+            return response()->json(['status' => 'available'], 201);
+        } else {
+            return response()->json(['status' => 'not Available'], 201);
+        }
     }
 }

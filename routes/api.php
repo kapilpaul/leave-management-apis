@@ -43,4 +43,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('salary-setting', 'Api\\SalarySettingController', ['except' => ['create', 'edit']]);
     Route::resource('employee', 'Api\\EmployeeController', ['except' => ['create', 'edit']]);
     Route::resource('leave-request', 'Api\\LeaveRequestController', ['except' => ['create', 'edit']]);
+
+    Route::get('/user/username-availability/{username}', 'AdminUserController@userNamecheck');
+    Route::get('/user/email-availability/{email}', 'AdminUserController@userEmailcheck');
+    Route::get('/user/employee-number-availability/{number}', 'AdminUserController@employeeNumberCheck');
 });

@@ -18,9 +18,9 @@ class CreateEmployeesTable extends Migration
             $table->string('employee_number')->nullable();
             $table->date('joining_date')->nullable();
             $table->integer('company_id')->unsigned();
-            $table->integer('supervisior_id')->unsigned();
+            $table->integer('supervisior_id')->nullable();
             $table->integer('designation_id')->unsigned();
-            $table->integer('photo_id')->unsigned();
+            $table->integer('photo_id')->nullable();
             $table->string('blood_group')->nullable();
             $table->string('linkedin')->nullable();
             $table->string('contact')->nullable();

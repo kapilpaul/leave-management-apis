@@ -32,5 +32,9 @@ class Employee extends Model
     public function user() {
         return $this->belongsTo('App\User', 'user_id');
     }
-    
+
+    public function supervisior() {
+        return $this->belongsTo('App\User', 'supervisior_id');
+    }
+
 }

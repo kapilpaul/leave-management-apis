@@ -29,7 +29,7 @@ class EmployeeController extends Controller
                     ->join('employees', 'users.id', '=', 'employees.user_id')
                     ->join('designations', 'employees.designation_id', '=', 'designations.id')
                     ->join('departments', 'designations.department_id', '=', 'departments.id')
-                    ->select('users.id', 'users.first_name', 'users.last_name', 'users.email', 'designations.name as designation', 'departments.name as department')
+                    ->select('users.id', 'users.first_name', 'users.last_name', 'users.user_name', 'users.email', 'designations.name as designation', 'departments.name as department')
                     ->paginate(25);
 
         return response()->json($employee, 201);
@@ -104,9 +104,52 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        $employee = Employee::findOrFail($id);
+        $employee = DB::table('users')
+            ->join('employees', 'users.id', '=', 'employees.user_id')
+            ->join('designations', 'employees.designation_id', '=', 'designations.id')
+            ->join('departments', 'designations.department_id', '=', 'departments.id')
+            ->where('users.user_name', $id)
+//            ->select('users.id', 'users.first_name', 'users.last_name', 'users.user_name', 'users.email', 'designations.name as designation', 'departments.name as department')
+            ->select(
+                'employees.blood_group',
+                'employees.company_id',
+                'employees.contact',
+                'employees.current_address',
+                'employees.date_of_birth',
+                'employees.driving_licence',
+                'employees.education',
+                'users.email',
+                'employees.emergency_contact_name',
+                'employees.emergency_contact_number',
+                'employees.employee_number',
+                'employees.experience',
+                'employees.fathers_name',
+                'employees.fathers_number',
+                'users.first_name',
+                'users.id as userid',
+                'employees.joining_date',
+                'users.last_name',
+                'employees.leaving_date',
+                'employees.linkedin',
+                'employees.mothers_name',
+                'employees.mothers_number',
+                'employees.nid',
+                'employees.official_number',
+                'employees.passport',
+                'employees.permanent_address',
+                'employees.photo_id',
+                'employees.relation_emergency_contact',
+                'employees.skills',
+                'employees.spouse_name',
+                'employees.spouse_number',
+                'employees.supervisior_id',
+                'users.user_name',
+                'designations.name as designation',
+                'departments.name as department'
+            )
+            ->first();
 
-        return $employee;
+        return response()->json($employee, 201);
     }
 
     /**

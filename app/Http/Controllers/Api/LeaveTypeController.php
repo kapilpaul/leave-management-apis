@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\LeaveType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Illuminate\Database\QueryException;
 use PDOException;
@@ -42,11 +43,15 @@ class LeaveTypeController extends Controller
                 'required' => 'The :attribute field can not be blank.',
             ];
             $validator = Validator::make($request->all(), $rules, $customMessages);
+
             if($validator->fails()){
                 return response()->json(['errors'=> $validator->errors()]);
             }
 
-            $leavetype = LeaveType::create($request->all());
+            $input = $request->all();
+            $input['created_by'] = $input['updated_by'] = Auth::user()->id;
+
+            $leavetype = LeaveType::create($input);
 
             return response()->json($leavetype, 201);
         } catch(PDOException $e){

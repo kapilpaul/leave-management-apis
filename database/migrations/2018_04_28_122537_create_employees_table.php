@@ -38,7 +38,7 @@ class CreateEmployeesTable extends Migration
             $table->string('driving_licence')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('emergency_contact_name')->nullable();
-            $table->date('emergency_contact_number')->nullable();
+            $table->string('emergency_contact_number')->nullable();
             $table->string('relation_emergency_contact')->nullable();
             $table->text('skills')->nullable();
             $table->text('education')->nullable();

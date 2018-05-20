@@ -34,7 +34,14 @@ class LoginController extends Controller
 
             if(Sentinel::authenticate($request->all(), $remember_me)){
                 if(Sentinel::inRole('admin') || Sentinel::inRole('employee')){
-                    return response()->json(['success' => 'Logged In successfully'], 200);
+                    if(Sentinel::inRole('admin')){
+                        $role = md5('admin');
+                    }
+                    if(Sentinel::inRole('employee')){
+                        $role = md5('employee');
+                    }
+
+                    return response()->json(['role' => $role], 200);
                 } else {
                     return response()->json(['error' => 'Error in login'], 500);
                 }

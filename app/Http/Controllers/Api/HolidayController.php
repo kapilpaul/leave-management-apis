@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Auth;
+use Validator;
 use App\Holiday;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Illuminate\Database\QueryException;
 use PDOException;
-use Validator;
 
 class HolidayController extends Controller
 {
@@ -20,7 +20,8 @@ class HolidayController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $holiday = Holiday::paginate(25);
+        $holiday = Holiday::whereStatus('active')->whereYear('date', '=', date('Y'))->orderBy('date', 'asc')->select('id', 'name', 'date')->paginate
+        (25);
 
         return $holiday;
     }
@@ -43,13 +44,17 @@ class HolidayController extends Controller
             ];
             $validator = Validator::make($request->all(), $rules, $customMessages);
             if($validator->fails()){
-                return response()->json(['errors'=> $validator->errors()]);
+                return response()->json(['errors'=> $validator->errors()], 500);
             }
 
-            $holiday = Holiday::create($request->all());
+            $input = $request->all();
+            $input['date'] = date('Y-m-d', strtotime($request->date));
+            $input['created_by'] = $input['updated_by'] = Auth::user()->id;
+            $holiday = Holiday::create($input);
 
             return response()->json($holiday, 201);
         } catch(PDOException $e){
+            return $e->getMessage();
             return response()->json(['error' => 'Something Went Wrong!'], 500);
         } catch(QueryException $e){
             return response()->json(['error' => 'Something Went Wrong!'], 500);

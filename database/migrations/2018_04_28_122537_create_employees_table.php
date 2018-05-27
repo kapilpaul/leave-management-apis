@@ -20,7 +20,7 @@ class CreateEmployeesTable extends Migration
             $table->integer('company_id')->unsigned();
             $table->integer('supervisior_id')->nullable();
             $table->integer('designation_id')->unsigned();
-            $table->integer('photo_id')->nullable();
+            $table->string('photo_id')->nullable();
             $table->string('blood_group')->nullable();
             $table->string('linkedin')->nullable();
             $table->string('contact')->nullable();

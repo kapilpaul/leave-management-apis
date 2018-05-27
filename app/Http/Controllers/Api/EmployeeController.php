@@ -30,7 +30,7 @@ class EmployeeController extends Controller
                     ->join('employees', 'users.id', '=', 'employees.user_id')
                     ->join('designations', 'employees.designation_id', '=', 'designations.id')
                     ->join('departments', 'designations.department_id', '=', 'departments.id')
-                    ->select('users.id', 'users.first_name', 'users.last_name', 'users.user_name', 'users.email', 'designations.name as designation', 'departments.name as department')
+                    ->select('users.id', 'users.first_name', 'users.last_name', 'users.user_name', 'users.email','employees.photo_id', 'designations.name as designation', 'departments.name as department')
                     ->paginate(25);
 
         return response()->json($employee, 201);
@@ -199,6 +199,7 @@ class EmployeeController extends Controller
                 return response()->json(['errors'=> $validator->errors()]);
             }
 
+
             $user = User::whereUserName($id)->first();
 
             if(! $user) {
@@ -217,6 +218,30 @@ class EmployeeController extends Controller
                     $employeeInput['education'] = json_encode($request->education);
                 }
             }
+
+            if(isset($request->photo)){
+                $exploded = explode(',', $request->photo);
+                $img = base64_decode($exploded[1]);
+                $extension = '';
+
+                if(str_contains($exploded[0], 'jpeg')) {
+                    $extension = "jpeg";
+                } else if (str_contains($exploded[0], 'jpg')) {
+                    $extension = "jpg";
+                } else if (str_contains($exploded[0], 'png')) {
+                    $extension = "png";
+                }
+
+                if($extension == 'jpg' || $extension == 'jpeg' || $extension == 'png') {
+                    $name = time() . '_pic.' . $extension;
+                    $path = public_path().'/image/'.$name;
+                    file_put_contents($path, $img);
+                    $employeeInput['photo_id'] = $name;
+                } else {
+                    return response()->json(['error' => "You can Only Upload Jpg, jpeg, png image"], 500);
+                }
+            }
+
 
             $employeeInput['updated_by'] = Auth::user()->id;
 
